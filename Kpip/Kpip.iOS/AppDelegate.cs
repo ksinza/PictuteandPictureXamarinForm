@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using AVFoundation;
 using Foundation;
 using UIKit;
 
@@ -24,6 +24,11 @@ namespace Kpip.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
+
+            var audioSession = AVAudioSession.SharedInstance();
+            NSError nSError = new NSError();
+            audioSession.SetCategory(AVAudioSessionCategory.Playback);
+            audioSession.SetActive(true, AVAudioSessionSetActiveOptions.NotifyOthersOnDeactivation, out nSError);
 
             return base.FinishedLaunching(app, options);
         }

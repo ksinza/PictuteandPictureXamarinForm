@@ -24,8 +24,9 @@ namespace Kpip.Droid
         public MediaPlayer player;
         public LinearLayout layaoutplayer;
         Button button;
+        /** The arguments to be used for Picture-in-Picture mode. */
+        PictureInPictureParams.Builder pictureInPictureParamsBuilder = new PictureInPictureParams.Builder();
 
-        
         public VideoPlayerRender(Context _context) : base(_context)
         {
             this.context = _context;
@@ -93,9 +94,11 @@ namespace Kpip.Droid
 
           public void Minimize()
         {
-           
+
+            var aspectRatio = new Rational(videoView.Width, videoView.Height);
+            pictureInPictureParamsBuilder.SetAspectRatio(aspectRatio).Build();
+            context.GetActivity().EnterPictureInPictureMode(pictureInPictureParamsBuilder.Build());
             
-            context.GetActivity().EnterPictureInPictureMode();
             return;
         }
 
